@@ -1,6 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Book from "./Book"
+import {booksSelector} from "../../selectors/booksSelector"
+import {connect} from "react-redux"
 
 const BooksList = ({books = []}) => (
   <ul className="list-group">
@@ -14,4 +16,10 @@ BooksList.propsTypes = {
   books: PropTypes.array,
 }
 
-export default BooksList
+function mapStateToProps(state) {
+  return {
+    books: booksSelector(state)
+  }
+}
+
+export default connect(mapStateToProps)(BooksList)
