@@ -26,7 +26,7 @@ Book.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     isActive: state.activeBook === ownProps.book._id,
-    category: state.categoriesBooks.find((item) => item._id === ownProps.book.categoryId)  ,
+    category: state.categoriesBooks.categories[ownProps.book.categoryId]
   }
 }
 
