@@ -1,13 +1,19 @@
 import { createSelector } from "reselect";
 
-const books = state => state.books;
-const cats = state => state.categoriesBooks.categories;
+const getBooks = state => state.books;
+const getCategories = state => state.categoriesBooks.categories;
+const getSelectedCategory = state => state.categoriesBooks.selectedCategory;
 
 export const booksSelector = createSelector(
-  books,
-  cats,
-  (books, cats) => books.map(book => ({
-    ...book,
-    categoryTitle: cats[book.categoryId].title,
-  }))
-)
+  getBooks,
+  getCategories,
+  getSelectedCategory,
+  (books, cats, selectedCategory) =>
+    (selectedCategory
+        ? books.filter((book) => book.categoryId === selectedCategory)
+        : books
+    ).map((book) => ({
+      ...book,
+      categoryTitle: cats[book.categoryId].title,
+    }))
+);
