@@ -5,14 +5,14 @@ import Menu from "./Menu"
 import {Route} from "react-router-dom"
 
 const BooksPage = AsyncLoad(lazyLoad("./books/BooksPage"));
-const FormBook = AsyncLoad(lazyLoad("./books/FormBook"));
+const BookForm = AsyncLoad(lazyLoad("./books/BookForm"));
 
 const App = props => (
   <div className="container">
     <Menu/>
     <div className="row">
       <Route exact path={"/"} component={BooksPage} />
-      <Route path={"/add-book"} component={FormBook} />
+      <Route path={"/add-book"} component={BookForm} />
     </div>
   </div>
 )

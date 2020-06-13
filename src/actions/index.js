@@ -9,3 +9,8 @@ export const selectCategory = id => ({
   type: constants.SELECT_CATEGORY,
   payload: {id}
 })
+
+export const addBook = book => ({
+  type: constants.ADD_BOOK,
+  payload: book,
+})
