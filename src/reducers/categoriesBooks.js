@@ -2,6 +2,7 @@ import {categories} from '../books';
 import {arrToMap} from "../utils"
 import constants from "../constants"
 
+
 const initialState = {
   categories: arrToMap(categories),
   selectedCategory: null,
