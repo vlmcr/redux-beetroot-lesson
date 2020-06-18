@@ -1,9 +1,13 @@
-import {createStore} from "redux"
+import {compose, createStore, applyMiddleware} from "redux"
 import reducers from "../reducers"
+import log from "../middlewares/log"
 
-const store = createStore(
-  reducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+const middlewares = [log]
+const composeEnhancers = window.__REDUX_DEVTOOLS_COMPOSE__ || compose;
 
-export default store;
+export default function(initialState) {
+  return createStore(
+    reducers,
+    composeEnhancers(applyMiddleware(...middlewares))
+  )
+}

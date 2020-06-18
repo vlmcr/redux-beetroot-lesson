@@ -7,7 +7,7 @@ import store from './store'
 import { BrowserRouter as Router } from 'react-router-dom';
 
 render(
-  <Provider store={store}>
+  <Provider store={store()}>
     <Router>
       <App />
     </Router>
