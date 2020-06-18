@@ -1,10 +1,13 @@
 import React, {useState} from "react"
+import {connect} from "react-redux"
+import {createCourse} from "../../actions/coursesActions"
+import PropTypes from 'prop-types';
 
 const initForm = {
   title: "",
 }
 
-const CoursesPage = () => {
+const CoursesPage = ({courses, createCourse}) => {
   const [form, setForm] = useState(initForm);
 
   const handleChange = e => {
@@ -14,7 +17,9 @@ const CoursesPage = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(form);
+
+    createCourse(form);
+    setForm(initForm);
   }
 
   return (
@@ -36,8 +41,23 @@ const CoursesPage = () => {
 
         <button className="btn btn-primary">Send</button>
       </form>
+
+      { courses.map(course => <p key={course.id}>{ course.title }</p>) }
     </div>
   )
 }
 
-export default CoursesPage
+CoursesPage.propTypes = {
+  courses: PropTypes.array.isRequired,
+  createCourse: PropTypes.func.isRequired,
+}
+
+CoursesPage.defaultProps = {
+  courses: [],
+}
+
+function mapStateToProps({courses}) {
+  return { courses }
+}
+
+export default connect(mapStateToProps, {createCourse})(CoursesPage)

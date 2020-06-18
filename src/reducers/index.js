@@ -2,8 +2,8 @@ import {combineReducers} from "redux"
 import books from "./books"
 import categoriesBooks from "./categoriesBooks"
 import activeBook from "./activeBook"
-import coursesReducer from "./coursesReducer"
+import courses from "./coursesReducer"
 
 export default combineReducers({
-  books, categoriesBooks, activeBook, coursesReducer
+  books, categoriesBooks, activeBook, courses
 })
