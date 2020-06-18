@@ -3,11 +3,11 @@ import React from "react"
 import { AsyncLoad, lazyLoad } from "./AsyncLoad"
 import CoursesPage from "./courses/CoursesPage"
 
-// const BooksPage = AsyncLoad(lazyLoad("./books/BooksPage"));
-// const BookForm = AsyncLoad(lazyLoad("./books/BookForm"));
+const Header = AsyncLoad(lazyLoad("./common/Header"));
 
 const App = props => (
   <div className="container">
+    <Header />
     <CoursesPage />
   </div>
 )
