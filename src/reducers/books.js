@@ -7,7 +7,11 @@ export default (state = defaultBooks, action) => {
 
   switch (type) {
     case constants.ADD_BOOK:
-      return [{ _id: id(), ...payload}, ...state]
+      if (payload._id) {
+        return state.map(book => book._id === payload._id ? payload : book)
+      } else {
+        return [{...payload,  _id: id() }, ...state]
+      }
     default:
       return state;
   }
