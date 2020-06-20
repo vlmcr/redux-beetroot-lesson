@@ -6,7 +6,7 @@ export default function(state = [], action) {
 
   switch (type) {
     case constants.CREATE_COURSE:
-      return [...state, { id: id(), ...payload}];
+      return [...state, payload];
     default:
       return state;
   }

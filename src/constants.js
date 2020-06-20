@@ -4,4 +4,5 @@ export default  {
   ADD_BOOK: 'ADD_BOOK',
 
   CREATE_COURSE: 'CREATE_COURSE',
+  CREATE: 'CREATE'
 }
