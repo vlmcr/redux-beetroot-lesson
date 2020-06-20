@@ -7,6 +7,8 @@ export default function(state = [], action) {
   switch (type) {
     case constants.CREATE_COURSE:
       return [...state, payload];
+    case constants.LOAD_COURSES_SUCCESS:
+      return payload;
     default:
       return state;
   }

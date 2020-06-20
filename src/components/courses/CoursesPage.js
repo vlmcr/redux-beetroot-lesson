@@ -1,13 +1,13 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {connect} from "react-redux"
-import {createCourse} from "../../actions/coursesActions"
+import {createCourse, loadCourses} from "../../actions/coursesActions"
 import PropTypes from 'prop-types';
 
 const initForm = {
   title: "",
 }
 
-const CoursesPage = ({courses, createCourse}) => {
+const CoursesPage = ({courses, createCourse, loadCourses}) => {
   const [form, setForm] = useState(initForm);
 
   const handleChange = e => {
@@ -21,6 +21,12 @@ const CoursesPage = ({courses, createCourse}) => {
     createCourse(form);
     setForm(initForm);
   }
+
+  useEffect(() => {
+    loadCourses().catch(() => {
+      alert("Loading courses failed")
+    })
+  }, [loadCourses]);
 
   return (
     <div className="container mt-5">
@@ -60,4 +66,4 @@ function mapStateToProps({courses}) {
   return { courses }
 }
 
-export default connect(mapStateToProps, {createCourse})(CoursesPage)
+export default connect(mapStateToProps, {createCourse, loadCourses})(CoursesPage)
