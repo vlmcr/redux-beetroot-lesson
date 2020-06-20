@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {connect} from "react-redux"
 import {createCourse, loadCourses} from "../../actions/coursesActions"
+import {loadAuthors} from "../../actions/authorActions"
 import PropTypes from 'prop-types';
 import CoursesList from "./CoursesList"
 
@@ -8,7 +9,7 @@ const initForm = {
   title: "",
 }
 
-const CoursesPage = ({courses, authors, createCourse, loadCourses}) => {
+const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors}) => {
   const [form, setForm] = useState(initForm);
 
   const handleChange = e => {
@@ -27,7 +28,11 @@ const CoursesPage = ({courses, authors, createCourse, loadCourses}) => {
     loadCourses().catch(() => {
       alert("Loading courses failed")
     })
-  }, [loadCourses]);
+
+    loadAuthors().catch(() => {
+      alert("Loading authors failed")
+    })
+  }, []);
 
   return (
     <div className="container mt-5">
@@ -64,7 +69,12 @@ CoursesPage.defaultProps = {
 }
 
 function mapStateToProps({courses, authors}) {
-  return { courses, authors }
+  return {
+    courses: courses.map(course => ({
+      ...course,
+      author: authors.find(a => a.id === course.authorId)
+    }))
+  }
 }
 
-export default connect(mapStateToProps, {createCourse, loadCourses})(CoursesPage)
+export default connect(mapStateToProps, {createCourse, loadCourses, loadAuthors})(CoursesPage)
