@@ -2,12 +2,13 @@ import React, {useEffect, useState} from "react"
 import {connect} from "react-redux"
 import {createCourse, loadCourses} from "../../actions/coursesActions"
 import PropTypes from 'prop-types';
+import CoursesList from "./CoursesList"
 
 const initForm = {
   title: "",
 }
 
-const CoursesPage = ({courses, createCourse, loadCourses}) => {
+const CoursesPage = ({courses, authors, createCourse, loadCourses}) => {
   const [form, setForm] = useState(initForm);
 
   const handleChange = e => {
@@ -48,7 +49,7 @@ const CoursesPage = ({courses, createCourse, loadCourses}) => {
         <button className="btn btn-primary">Send</button>
       </form>
 
-      { courses.map(course => <p key={course.id}>{ course.title }</p>) }
+      <CoursesList courses={courses} />
     </div>
   )
 }
@@ -62,8 +63,8 @@ CoursesPage.defaultProps = {
   courses: [],
 }
 
-function mapStateToProps({courses}) {
-  return { courses }
+function mapStateToProps({courses, authors}) {
+  return { courses, authors }
 }
 
 export default connect(mapStateToProps, {createCourse, loadCourses})(CoursesPage)
