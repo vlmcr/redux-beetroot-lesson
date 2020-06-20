@@ -25,13 +25,18 @@ const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors})
   }
 
   useEffect(() => {
-    loadCourses().catch(() => {
-      alert("Loading courses failed")
-    })
+    if (courses.length === 0) {
+      loadCourses().catch(() => {
+        alert("Loading courses failed")
+      })
+    }
 
-    loadAuthors().catch(() => {
-      alert("Loading authors failed")
-    })
+    if (authors.length === 0) {
+      loadAuthors().catch(() => {
+        alert("Loading authors failed")
+      })
+    }
+
   }, []);
 
   return (
@@ -70,6 +75,7 @@ CoursesPage.defaultProps = {
 
 function mapStateToProps({courses, authors}) {
   return {
+    authors,
     courses: courses.map(course => ({
       ...course,
       author: authors.find(a => a.id === course.authorId)
