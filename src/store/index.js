@@ -1,13 +1,13 @@
-import {compose, createStore, applyMiddleware} from "redux"
-import reducers from "../reducers"
-import log from "../middlewares/log"
+import reducer from "../reducers"
+// import log from "../middlewares/log"
+import logger from "redux-logger";
+import {configureStore} from "@reduxjs/toolkit"
 
-const middlewares = [log]
-const composeEnhancers = window.__REDUX_DEVTOOLS_COMPOSE__ || compose;
+const middleware = [logger]
 
 export default function(initialState) {
-  return createStore(
-    reducers,
-    composeEnhancers(applyMiddleware(...middlewares))
-  )
+  return configureStore({
+    reducer,
+    middleware,
+  })
 }
