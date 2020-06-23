@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useMemo, useState} from "react"
 import {connect} from "react-redux"
 import {createCourse, loadCourses} from "../../actions/coursesActions"
 import {loadAuthors} from "../../actions/authorActions"
 import PropTypes from 'prop-types';
 import CoursesList from "./CoursesList"
+import { counterAction } from "../../actions"
 
 const initForm = {
   title: "",
 }
 
-const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors}) => {
+const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors, counter, counterAction}) => {
   const [form, setForm] = useState(initForm);
 
   const handleChange = e => {
@@ -23,6 +24,15 @@ const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors})
     createCourse(form);
     setForm(initForm);
   }
+
+  const memoCourses = useMemo(
+    () =>
+      courses.map(course => ({
+        ...course,
+        author: authors.find(author => author.id === course.authorId),
+      })),
+    [courses, authors],
+  )
 
   useEffect(() => {
     if (courses.length === 0) {
@@ -43,6 +53,8 @@ const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors})
     <div className="container mt-5">
       <h1>Courses Page</h1>
 
+      <button onClick={counterAction}>{counter}</button>
+
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Title</label>
@@ -59,7 +71,13 @@ const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors})
         <button className="btn btn-primary">Send</button>
       </form>
 
-      <CoursesList courses={courses} />
+      {/*<CoursesList courses={courses} />*/}
+
+      {memoCourses.length ? (
+        <CoursesList courses={memoCourses} />
+      ) : (
+        <h1>Loading</h1>
+      )}
     </div>
   )
 }
@@ -73,14 +91,12 @@ CoursesPage.defaultProps = {
   courses: [],
 }
 
-function mapStateToProps({courses, authors}) {
+function mapStateToProps({courses, authors, counter}) {
   return {
+    counter,
     authors,
-    courses: courses.map(course => ({
-      ...course,
-      author: authors.find(a => a.id === course.authorId)
-    }))
+    courses: authors.length === 0 ? [] : courses,
   }
 }
 
-export default connect(mapStateToProps, {createCourse, loadCourses, loadAuthors})(CoursesPage)
+export default connect(mapStateToProps, {createCourse, loadCourses, loadAuthors, counterAction})(CoursesPage)

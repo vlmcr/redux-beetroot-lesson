@@ -1,8 +1,10 @@
-import React from "react"
+import React, {memo} from "react"
 import PropTypes from "prop-types"
 import {Link} from "react-router-dom"
 
 const CoursesList = ({courses}) => {
+  console.log("render");
+
   if (!courses.length) {
     return null;
   }
@@ -34,4 +36,4 @@ CoursesList.defaultProps = {
   courses: [],
 }
 
-export default CoursesList
+export default memo(CoursesList)

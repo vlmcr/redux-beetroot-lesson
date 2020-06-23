@@ -15,3 +15,6 @@ export const addBook = book => ({
   payload: book,
 })
 
+export const counterAction = () => ({
+  type: "INCREMENT"
+});
