@@ -1,9 +1,12 @@
-import React, {useEffect, useMemo, useState} from "react"
+import React, {useEffect, useState} from "react"
 import {connect} from "react-redux"
-import {createCourse, loadCourses} from "../../actions/coursesActions"
+import {
+  createCourse,
+  loadCourses,
+  saveCoursesAction,
+} from "../../actions/coursesActions"
 import {loadAuthors} from "../../actions/authorActions"
-import PropTypes from 'prop-types';
-import { counterAction } from "../../actions"
+import PropTypes from "prop-types"
 import CourseForm from "./CourseForm"
 
 const initCourse = {
@@ -13,34 +16,31 @@ const initCourse = {
   category: "",
 }
 
-const ManageCoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors, ...props}) => {
-  const [course, setCourse] = useState({...props.course});
-  const [errors, setErrors] = useState({});
+const ManageCoursesPage = ({
+  courses,
+  authors,
+  createCourse,
+  loadCourses,
+  loadAuthors,
+  saveCoursesAction,
+  history,
+  ...props
+}) => {
+  const [course, setCourse] = useState({...props.course})
+  const [errors, setErrors] = useState({})
 
   const handleChange = e => {
-    const { name, value } = e.target;
+    const {name, value} = e.target
     setCourse(prev => ({
       ...prev,
-      [name]: name === "authorId" ? Number(value) : value
+      [name]: name === "authorId" ? Number(value) : value,
     }))
   }
 
   const handleSubmit = e => {
-    e.preventDefault();
-    console.log(course)
-
-    // createCourse(course);
-    // setCourse(initCourse);
+    e.preventDefault()
+    saveCoursesAction(course).then(() => history.push("/courses"))
   }
-
-  const memoCourses = useMemo(
-    () =>
-      courses.map(course => ({
-        ...course,
-        author: authors.find(author => author.id === course.authorId),
-      })),
-    [courses, authors],
-  )
 
   useEffect(() => {
     if (courses.length === 0) {
@@ -54,8 +54,7 @@ const ManageCoursesPage = ({courses, authors, createCourse, loadCourses, loadAut
         alert("Loading authors failed")
       })
     }
-
-  }, []);
+  }, [])
 
   return (
     <div className="container mt-5">
@@ -82,13 +81,21 @@ ManageCoursesPage.defaultProps = {
 }
 
 function mapStateToProps({courses, authors}, ownProps) {
-  const slug = ownProps.match.params.slug;
+  const slug = ownProps.match.params.slug
 
   return {
     authors,
     courses: authors.length === 0 ? [] : courses,
-    course: slug && courses.length ? courses.find(course => course.slug === slug) : initCourse
+    course:
+      slug && courses.length
+        ? courses.find(course => course.slug === slug)
+        : initCourse,
   }
 }
 
-export default connect(mapStateToProps, {createCourse, loadCourses, loadAuthors, counterAction})(ManageCoursesPage)
+export default connect(mapStateToProps, {
+  createCourse,
+  loadCourses,
+  loadAuthors,
+  saveCoursesAction,
+})(ManageCoursesPage)

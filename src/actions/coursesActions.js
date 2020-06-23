@@ -19,3 +19,25 @@ export function loadCourses() {
     })
   }
 }
+
+function updateSuccessCourse(course) {
+  return {type: constants.UPDATE_COURSE_SUCCESS, payload: course}
+}
+
+function createSuccessCourse(course) {
+  return {type: constants.CREATE_COURSE_SUCCESS, payload: course}
+}
+
+export function saveCoursesAction(course) {
+  return function(dispatch) {
+    return courseApi.saveCourse(course)
+      .then(savedCourse => {
+        course.id
+          ? dispatch(updateSuccessCourse(savedCourse))
+          : dispatch(createSuccessCourse(savedCourse))
+      })
+      .catch(err => {
+        throw err
+      })
+  }
+}

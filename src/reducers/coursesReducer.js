@@ -1,15 +1,18 @@
 import constants from "../constants"
-import {generate as id} from "shortid"
 
-export default function(state = [], action) {
-  const { type, payload } = action;
+export default function (state = [], action) {
+  const {type, payload} = action
 
   switch (type) {
     case constants.CREATE_COURSE:
-      return [...state, payload];
+      return [...state, payload]
     case constants.LOAD_COURSES_SUCCESS:
-      return payload;
+      return payload
+    case constants.CREATE_COURSE_SUCCESS:
+      return [...state, {...payload}]
+    case constants.UPDATE_COURSE_SUCCESS:
+      return state.map(course => (course.id === payload.id ? payload : course))
     default:
-      return state;
+      return state
   }
 }
