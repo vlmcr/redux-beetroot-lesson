@@ -24,10 +24,6 @@ const App = props => (
       <Route path="/course/:slug" component={ManageCoursesPage} />
       <Route path="/course" component={ManageCoursesPage} />
 
-      <Route path="/">
-        <HomePage/>
-      </Route>
-
       <Route component={PageNotFound} />
     </Switch>
   </div>
