@@ -1,5 +1,6 @@
 import constants from "../constants"
 import * as courseApi from "../api/courseApi";
+import {beginApiCall} from "./apiStatusActions"
 
 export const createCourse = course => ({
   type: constants.CREATE_COURSE,
@@ -8,6 +9,8 @@ export const createCourse = course => ({
 
 export function loadCourses() {
   return function(dispatch) {
+    dispatch(beginApiCall())
+
     return courseApi.getCourses().then(courses => {
       dispatch({
         type: constants.LOAD_COURSES_SUCCESS,
@@ -30,6 +33,8 @@ function createSuccessCourse(course) {
 
 export function saveCoursesAction(course) {
   return function(dispatch) {
+    dispatch(beginApiCall())
+
     return courseApi.saveCourse(course)
       .then(savedCourse => {
         course.id

@@ -8,6 +8,7 @@ import {
 import {loadAuthors} from "../../actions/authorActions"
 import PropTypes from "prop-types"
 import CourseForm from "./CourseForm"
+import Spinner from "../common/Spinner"
 
 const initCourse = {
   id: null,
@@ -24,6 +25,7 @@ const ManageCoursesPage = ({
   loadAuthors,
   saveCoursesAction,
   history,
+  loading,
   ...props
 }) => {
   const [course, setCourse] = useState({...props.course})
@@ -60,13 +62,17 @@ const ManageCoursesPage = ({
     <div className="container mt-5">
       <h1>Manage Courses Page</h1>
 
-      <CourseForm
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        authors={authors}
-        course={course}
-        errors={errors}
-      />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <CourseForm
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          authors={authors}
+          course={course}
+          errors={errors}
+        />
+      )}
     </div>
   )
 }
@@ -80,7 +86,7 @@ ManageCoursesPage.defaultProps = {
   courses: [],
 }
 
-function mapStateToProps({courses, authors}, ownProps) {
+function mapStateToProps({courses, authors, apiCallsInProgress}, ownProps) {
   const slug = ownProps.match.params.slug
 
   return {
@@ -90,6 +96,7 @@ function mapStateToProps({courses, authors}, ownProps) {
       slug && courses.length
         ? courses.find(course => course.slug === slug)
         : initCourse,
+    loading: apiCallsInProgress > 0,
   }
 }
 
