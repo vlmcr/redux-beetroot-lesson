@@ -4,10 +4,29 @@ import {createCourse, loadCourses} from "../../actions/coursesActions"
 import {loadAuthors} from "../../actions/authorActions"
 import PropTypes from 'prop-types';
 import CoursesList from "./CoursesList"
-import {Redirect} from "react-router-dom"
+import { counterAction } from "../../actions"
 
-const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors}) => {
-  const [redirect, setRedirect] = useState(false);
+const initCourse = {
+  id: null,
+  title: "",
+  authorId: "",
+  category: "",
+}
+
+const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors, counter, counterAction}) => {
+  const [course, setCourse] = useState(initCourse);
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setCourse(prev => ({...prev, [name]: value}))
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    createCourse(course);
+    setCourse(initCourse);
+  }
 
   const memoCourses = useMemo(
     () =>
@@ -35,19 +54,7 @@ const CoursesPage = ({courses, authors, createCourse, loadCourses, loadAuthors})
 
   return (
     <div className="container mt-5">
-      <h1>Courses Page</h1>
-
-      <button onClick={() => setRedirect(true)} className="btn btn-primary my-3">
-        Add Course
-      </button>
-
-      {redirect && <Redirect to={"/course"} />}
-
-      {memoCourses.length ? (
-        <CoursesList courses={memoCourses} />
-      ) : (
-        <h1>Loading</h1>
-      )}
+      <h1>Manage Courses Page</h1>
     </div>
   )
 }
@@ -65,7 +72,8 @@ function mapStateToProps({courses, authors}) {
   return {
     authors,
     courses: authors.length === 0 ? [] : courses,
+    course: initCourse
   }
 }
 
-export default connect(mapStateToProps, {createCourse, loadCourses, loadAuthors})(CoursesPage)
+export default connect(mapStateToProps, {createCourse, loadCourses, loadAuthors, counterAction})(CoursesPage)
