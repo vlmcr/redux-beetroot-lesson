@@ -2,10 +2,10 @@
   "courses": [
     {
       "id": 1,
-      "title": "Front end",
+      "title": "sdfFront esdnd",
       "slug": "front-end",
       "authorId": 1,
-      "category": "frontend"
+      "category": "frontendssdfd"
     },
     {
       "id": 2,
@@ -72,11 +72,11 @@
     },
     {
       "id": 11,
-      "title": "test ",
-      "authorId": 2,
-      "category": "test category",
-      "createdAt": 1592935133731,
-      "slug": "test"
+      "title": "sadf",
+      "authorId": 3,
+      "category": "asdf",
+      "createdAt": 1593092864824,
+      "slug": "sadf"
     }
   ],
   "authors": [

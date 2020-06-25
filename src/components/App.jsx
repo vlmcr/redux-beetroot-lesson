@@ -3,6 +3,8 @@ import React from "react"
 import { AsyncLoad, lazyLoad } from "./AsyncLoad"
 import {Route, Switch} from "react-router-dom"
 import PageNotFound from "./PageNotFound"
+import {ToastContainer} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const Header = AsyncLoad(lazyLoad("./common/Header"));
 const CoursesPage = AsyncLoad(lazyLoad("./courses/CoursesPage"));
@@ -26,6 +28,7 @@ const App = props => (
 
       <Route component={PageNotFound} />
     </Switch>
+    <ToastContainer autoClose={3000} hideProgressBar/>
   </div>
 )
 

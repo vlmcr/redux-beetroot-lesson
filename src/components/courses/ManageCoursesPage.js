@@ -9,6 +9,7 @@ import {loadAuthors} from "../../actions/authorActions"
 import PropTypes from "prop-types"
 import CourseForm from "./CourseForm"
 import Spinner from "../common/Spinner"
+import {toast} from "react-toastify"
 
 const initCourse = {
   id: null,
@@ -41,7 +42,10 @@ const ManageCoursesPage = ({
 
   const handleSubmit = e => {
     e.preventDefault()
-    saveCoursesAction(course).then(() => history.push("/courses"))
+    saveCoursesAction(course).then(() => {
+      toast.success("Course saved")
+      history.push("/courses")
+    })
   }
 
   useEffect(() => {
