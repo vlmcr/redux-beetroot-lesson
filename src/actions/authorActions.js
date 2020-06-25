@@ -1,6 +1,6 @@
 import constants from "../constants";
 import * as authorApi from "../api/authorApi";
-import {beginApiCall} from "./apiStatusActions";
+import {apiCallError, beginApiCall} from "./apiStatusActions"
 
 export function loadAuthors() {
 
@@ -15,6 +15,7 @@ export function loadAuthors() {
         })
       })
       .catch(err => {
+        dispatch(apiCallError(err))
         throw err
       })
   }

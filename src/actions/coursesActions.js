@@ -1,6 +1,6 @@
 import constants from "../constants"
 import * as courseApi from "../api/courseApi";
-import {beginApiCall} from "./apiStatusActions"
+import {apiCallError, beginApiCall} from "./apiStatusActions"
 
 export const createCourse = course => ({
   type: constants.CREATE_COURSE,
@@ -18,6 +18,7 @@ export function loadCourses() {
       })
     })
     .catch(err => {
+      dispatch(apiCallError(err))
       throw err;
     })
   }
@@ -42,6 +43,7 @@ export function saveCoursesAction(course) {
           : dispatch(createSuccessCourse(savedCourse))
       })
       .catch(err => {
+        dispatch(apiCallError(err))
         throw err
       })
   }

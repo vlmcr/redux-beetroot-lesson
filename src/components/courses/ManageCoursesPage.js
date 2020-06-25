@@ -31,6 +31,7 @@ const ManageCoursesPage = ({
 }) => {
   const [course, setCourse] = useState({...props.course})
   const [errors, setErrors] = useState({})
+  const [saving, setSaving] = useState(false)
 
   const handleChange = e => {
     const {name, value} = e.target
@@ -42,10 +43,16 @@ const ManageCoursesPage = ({
 
   const handleSubmit = e => {
     e.preventDefault()
-    saveCoursesAction(course).then(() => {
-      toast.success("Course saved")
-      history.push("/courses")
-    })
+    setSaving(true)
+    saveCoursesAction(course)
+      .then(() => {
+        toast.success("Course saved")
+        history.push("/courses")
+      })
+      .catch(err => {
+        setSaving(false)
+        setErrors({onSave: err.message})
+      })
   }
 
   useEffect(() => {
@@ -75,6 +82,7 @@ const ManageCoursesPage = ({
           authors={authors}
           course={course}
           errors={errors}
+          saving={saving}
         />
       )}
     </div>
