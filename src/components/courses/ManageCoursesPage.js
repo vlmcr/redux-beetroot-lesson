@@ -39,10 +39,16 @@ const ManageCoursesPage = ({
       ...prev,
       [name]: name === "authorId" ? Number(value) : value,
     }))
+    setErrors(prev => ({...prev, [name]: ""}))
   }
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    if(!formIsValid()) {
+      return;
+    }
+
     setSaving(true)
     saveCoursesAction(course)
       .then(() => {
@@ -53,6 +59,17 @@ const ManageCoursesPage = ({
         setSaving(false)
         setErrors({onSave: err.message})
       })
+  }
+
+  function formIsValid() {
+    const {title, authorId, category} = course;
+    const errors = {};
+    if (!title) errors.title = "This field cannot be blank";
+    if (!authorId) errors.authorId = "This field cannot be blank";
+    if (!category) errors.category = "This field cannot be blank";
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
   }
 
   useEffect(() => {
