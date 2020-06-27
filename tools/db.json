@@ -2,10 +2,10 @@
   "courses": [
     {
       "id": 1,
-      "title": "sdfFront esdnd",
+      "title": "Front end",
       "slug": "front-end",
       "authorId": 1,
-      "category": "frontendssdfd"
+      "category": "frontend"
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@
     },
     {
       "id": 3,
-      "title": "Backend PHP",
+      "title": "fBackend PHP",
       "slug": "backend-php",
       "authorId": 2,
       "category": "backend"
@@ -69,22 +69,6 @@
       "slug": "framework-symphony",
       "authorId": 2,
       "category": "backend"
-    },
-    {
-      "id": 11,
-      "title": "sadf",
-      "authorId": 3,
-      "category": "asdf",
-      "createdAt": 1593092864824,
-      "slug": "sadf"
-    },
-    {
-      "id": 12,
-      "title": "123",
-      "authorId": 2,
-      "category": "123",
-      "createdAt": 1593102192368,
-      "slug": "123"
     }
   ],
   "authors": [

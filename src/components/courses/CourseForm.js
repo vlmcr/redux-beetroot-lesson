@@ -12,7 +12,7 @@ const CourseForm = ({
   errors,
 }) => {
   return (
-    <form onSubmit={handleSubmit} className="col-md-4">
+    <form data-testid={"course-form"} onSubmit={handleSubmit} className="col-md-4">
       <h1>{course.id ? "Edit" : "Add"} course</h1>
 
       {errors.onSave && (

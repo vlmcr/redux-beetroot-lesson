@@ -18,7 +18,7 @@ const initCourse = {
   category: "",
 }
 
-const ManageCoursesPage = ({
+export const ManageCoursesPage = ({
   courses,
   authors,
   createCourse,
@@ -104,11 +104,6 @@ const ManageCoursesPage = ({
       )}
     </div>
   )
-}
-
-ManageCoursesPage.propTypes = {
-  courses: PropTypes.array.isRequired,
-  createCourse: PropTypes.func.isRequired,
 }
 
 ManageCoursesPage.defaultProps = {

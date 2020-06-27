@@ -8,7 +8,7 @@ const TextInput = ({name, label, handleChange, value, error}) => {
     wrapperClass += " has-error"
   }
   return (
-    <div className={wrapperClass}>
+    <div data-testid={`${name}-box`} className={wrapperClass}>
       <label htmlFor={name}>{label}</label>
       <input  id={name} name={name}  type="text" className="form-control"
               placeholder={label}  value={value} onChange={handleChange}
