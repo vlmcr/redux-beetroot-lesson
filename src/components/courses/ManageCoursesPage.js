@@ -10,6 +10,7 @@ import PropTypes from "prop-types"
 import CourseForm from "./CourseForm"
 import Spinner from "../common/Spinner"
 import {toast} from "react-toastify"
+import CourseFormikForm from "./CourseFormikForm"
 
 const initCourse = {
   id: null,
@@ -45,10 +46,14 @@ export const ManageCoursesPage = ({
   const handleSubmit = e => {
     e.preventDefault()
 
-    if(!formIsValid()) {
-      return;
+    if (!formIsValid()) {
+      return
     }
 
+    saveCourse(course)
+  }
+
+  const saveCourse = course => {
     setSaving(true)
     saveCoursesAction(course)
       .then(() => {
@@ -62,14 +67,14 @@ export const ManageCoursesPage = ({
   }
 
   function formIsValid() {
-    const {title, authorId, category} = course;
-    const errors = {};
-    if (!title) errors.title = "This field cannot be blank";
-    if (!authorId) errors.authorId = "This field cannot be blank";
-    if (!category) errors.category = "This field cannot be blank";
+    const {title, authorId, category} = course
+    const errors = {}
+    if (!title) errors.title = "This field cannot be blank"
+    if (!authorId) errors.authorId = "This field cannot be blank"
+    if (!category) errors.category = "This field cannot be blank"
 
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
+    setErrors(errors)
+    return Object.keys(errors).length === 0
   }
 
   useEffect(() => {
@@ -93,8 +98,16 @@ export const ManageCoursesPage = ({
       {loading ? (
         <Spinner />
       ) : (
-        <CourseForm
-          handleSubmit={handleSubmit}
+        // <CourseForm
+        //   handleSubmit={handleSubmit}
+        //   handleChange={handleChange}
+        //   authors={authors}
+        //   course={course}
+        //   errors={errors}
+        //   saving={saving}
+        // />
+        <CourseFormikForm
+          handleSubmit={saveCourse}
           handleChange={handleChange}
           authors={authors}
           course={course}

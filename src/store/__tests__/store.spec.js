@@ -10,8 +10,8 @@ test("should crate store", () => {
 
   store.dispatch(action);
 
-  const createCourse = store.getState().courses[0];
+  const createdCourse = store.getState().courses[0];
 
-  expect(createCourse).toEqual(course);
-  expect(createCourse).not.toEqual({ title: "Clean Code1" });
+  expect(createdCourse).toEqual(course);
+  expect(createdCourse).not.toEqual({ title: "Clean Code1" });
 })

@@ -1,6 +1,55 @@
 {
   "courses": [
     {
+      "id": 1,
+      "title": "Front end",
+      "slug": "front-end",
+      "authorId": 1,
+      "category": "frontend"
+    },
+    {
+      "id": 2,
+      "title": "JavaScript Advanced React",
+      "slug": "javascript-advanced",
+      "authorId": 1,
+      "category": "frontend"
+    },
+    {
+      "id": 3,
+      "title": "Backend PHP",
+      "slug": "backend-php",
+      "authorId": 2,
+      "category": "backend"
+    },
+    {
+      "id": 4,
+      "title": "Python",
+      "slug": "python-course",
+      "authorId": 2,
+      "category": "backend"
+    },
+    {
+      "id": 5,
+      "title": "Web Design",
+      "slug": "web-design",
+      "authorId": 3,
+      "category": "design"
+    },
+    {
+      "id": 6,
+      "title": "Databases",
+      "slug": "databases",
+      "authorId": 2,
+      "category": "backend"
+    },
+    {
+      "id": 7,
+      "title": "Clean Code",
+      "slug": "clean-code-humans",
+      "authorId": 2,
+      "category": "backend"
+    },
+    {
       "id": 8,
       "title": "HTML 5",
       "slug": "html-5",
@@ -20,6 +69,14 @@
       "slug": "framework-symphony",
       "authorId": 2,
       "category": "backend"
+    },
+    {
+      "title": "asdf",
+      "authorId": 1,
+      "category": "asdf",
+      "createdAt": 1593253626844,
+      "slug": "asdf",
+      "id": 11
     }
   ],
   "authors": [
