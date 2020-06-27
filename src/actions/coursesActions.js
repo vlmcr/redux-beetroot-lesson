@@ -24,7 +24,7 @@ export function loadCourses() {
   }
 }
 
-function updateSuccessCourse(course) {
+export function updateSuccessCourse(course) {
   return {type: constants.UPDATE_COURSE_SUCCESS, payload: course}
 }
 
