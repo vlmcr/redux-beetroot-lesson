@@ -48,3 +48,18 @@ export function saveCoursesAction(course) {
       })
   }
 }
+
+export function deleteCoursesAction(course) {
+  return function(dispatch) {
+    dispatch({
+      type: constants.DELETE_COURSE,
+      payload: course,
+    })
+    return courseApi.deleteCourse(course.id)
+  }
+}
+
+export const restoreCourseAction = course => ({
+  type: constants.CREATE_COURSE_SUCCESS,
+  payload: course,
+})

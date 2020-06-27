@@ -1,13 +1,26 @@
 import React, {useEffect, useMemo, useState} from "react"
 import {connect} from "react-redux"
-import {loadCourses} from "../../actions/coursesActions"
+import {
+  loadCourses,
+  deleteCoursesAction,
+  restoreCourseAction,
+} from "../../actions/coursesActions"
 import {loadAuthors} from "../../actions/authorActions"
 import PropTypes from "prop-types"
 import CoursesList from "./CoursesList"
 import {Redirect} from "react-router-dom"
 import Spinner from "../common/Spinner"
+import {toast} from "react-toastify"
 
-const CoursesPage = ({courses, authors, loading, loadCourses, loadAuthors}) => {
+const CoursesPage = ({
+  courses,
+  authors,
+  loading,
+  loadCourses,
+  loadAuthors,
+  deleteCoursesAction,
+  restoreCourseAction,
+}) => {
   const [redirect, setRedirect] = useState(false)
 
   const memoCourses = useMemo(
@@ -18,6 +31,16 @@ const CoursesPage = ({courses, authors, loading, loadCourses, loadAuthors}) => {
       })),
     [courses, authors],
   )
+
+  const handleDelete = async course => {
+    toast.success("Course deleted")
+    try {
+      await deleteCoursesAction(course)
+    } catch (err) {
+      toast.error("Delete failed " + err.message, {autoClose: false})
+      restoreCourseAction(course)
+    }
+  }
 
   useEffect(() => {
     if (courses.length === 0) {
@@ -49,7 +72,7 @@ const CoursesPage = ({courses, authors, loading, loadCourses, loadAuthors}) => {
       {loading && <Spinner />}
 
       {memoCourses.length ? (
-        <CoursesList courses={memoCourses} />
+        <CoursesList onDelete={handleDelete} courses={memoCourses} />
       ) : (
         <h1>Loading</h1>
       )}
@@ -77,4 +100,6 @@ function mapStateToProps({courses, authors, apiCallsInProgress}) {
 export default connect(mapStateToProps, {
   loadCourses,
   loadAuthors,
+  deleteCoursesAction,
+  restoreCourseAction,
 })(CoursesPage)

@@ -2,7 +2,7 @@ import React, {memo} from "react"
 import PropTypes from "prop-types"
 import {Link} from "react-router-dom"
 
-const CoursesList = ({courses}) => {
+const CoursesList = ({courses, onDelete}) => {
   console.log("render");
 
   if (!courses.length) {
@@ -21,6 +21,12 @@ const CoursesList = ({courses}) => {
           <td><Link to={`/course/${course.slug}`}>{course.title}</Link></td>
           <td>{course.authorId} {course.author && course.author.name}</td>
           <td>{course.category}</td>
+          <td>
+            <button onClick={() => onDelete(course)}
+                    className="btn btn-outline-danger">
+              Delete course
+            </button>
+          </td>
         </tr>
       ))}
       </tbody>
