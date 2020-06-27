@@ -10,19 +10,12 @@ const initialValues = {
 }
 
 const validationSchema = yup.object().shape({
-  title: yup.string().required(),
+  title: yup.string(),
   authorId: yup.string().required(),
   category: yup.string().required(),
 })
 
-const CourseFormikForm = ({
-  course,
-  authors,
-  handleSubmit,
-  handleChange,
-  saving,
-  errors,
-}) => {
+const CourseFormikForm = ({course, authors, handleSubmit, saving, errors}) => {
   return (
     <>
       <h1>{course.id ? "Edit" : "Add"} course</h1>
@@ -38,32 +31,35 @@ const CourseFormikForm = ({
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
-        {formik => (
-          <Form>
-            <Field type="text" name="title" />
-            <ErrorMessage name="title" component="div" />
+        {formik => {
 
-            <Field as="select" name="authorId">
-              {authors.map(author => (
-                <option value={author.id} key={author.id}>
-                  {author.name}
-                </option>
-              ))}
-            </Field>
-            <ErrorMessage name="authorId" component="div" />
+          return (
+            <Form>
+              <Field type="text" name="title" />
+              <ErrorMessage name="title" component="div" />
 
-            <Field type="text" name="category" />
-            <ErrorMessage name="category" component="div" />
+              <Field as="select" name="authorId">
+                {authors.map(author => (
+                  <option value={author.id} key={author.id}>
+                    {author.name}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage name="authorId" component="div" />
 
-            <button
-              className="btn btn-primary btn-lg"
-              disabled={saving}
-              type="submit"
-            >
-              {saving ? "Saving" : "Save"}
-            </button>
-          </Form>
-        )}
+              <Field type="text" name="category" />
+              <ErrorMessage name="category" component="div" />
+
+              <button
+                className="btn btn-primary btn-lg"
+                disabled={saving}
+                type="submit"
+              >
+                {saving ? "Saving" : "Save"}
+              </button>
+            </Form>
+          )
+        }}
       </Formik>
     </>
 

@@ -62,7 +62,7 @@ export const ManageCoursesPage = ({
       })
       .catch(err => {
         setSaving(false)
-        setErrors({onSave: err.message})
+        setErrors({onSave: err.message, title: err.message})
       })
   }
 
